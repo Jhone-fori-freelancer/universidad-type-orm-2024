@@ -1,32 +1,99 @@
-# 📚 **Proyecto Universidad**
+# 🎓 Proyecto Universidad 📚
 
-## 🎯 **Descripción**
-¡Bienvenidos al **Proyecto Universidad**! 🏫✨  
-Esta aplicación web está diseñada para gestionar información universitaria de manera eficiente, abarcando la administración de **estudiantes**, **profesores** y **cursos**. 
+## ✨ Descripción del Proyecto
+Este proyecto es una aplicación web para gestionar la información universitaria, como estudiantes, profesores y cursos. La aplicación está desarrollada utilizando TypeScript junto con TypeORM para la gestión de la base de datos relacional, y Pug para la generación de vistas dinámicas. Se creó como parte de la asignatura **"Desarrollo de Aplicaciones Web"** y sigue la arquitectura MVC (Modelo-Vista-Controlador) para una mejor organización y escalabilidad del código.
 
-💡 **¿Por qué este proyecto?**  
-Fue desarrollado con pasión y dedicación como parte de la asignatura *"Desarrollo de Aplicaciones Web"*. No solo busca cumplir con requisitos académicos, sino que representa un esfuerzo personal por crear una herramienta funcional que refleje conocimientos aplicados en tecnologías modernas.
+## 🚀 Tecnologías Utilizadas
+- **TypeScript**: Lenguaje principal del proyecto para tipado estático y mayor robustez.
+- **TypeORM**: ORM utilizado para interactuar con la base de datos relacional.
+- **Express.js**: Framework para crear la API REST de manera rápida y eficiente.
+- **Pug**: Motor de plantillas que facilita la creación de interfaces de usuario dinámicas.
+- **MySQL**: Base de datos utilizada para almacenar toda la información.
+- **Node.js**: Entorno de ejecución para el servidor.
+- **express-validator**: Middleware para realizar validaciones.
+- **SweetAlert2**: Biblioteca para mostrar alertas atractivas en el frontend.
+- **Tailwind CSS**: Framework de CSS para crear interfaces modernas y estilizadas de manera rápida.
 
-## 🚀 **Tecnologías Principales**
-Este proyecto combina herramientas poderosas para ofrecer un entorno ágil, seguro y escalable:
+## 📁 Estructura del Proyecto
+El proyecto se organiza en varias carpetas y archivos para separar las responsabilidades de cada componente:
 
-- 🔹 **TypeScript**: Lenguaje principal, con tipado fuerte y características avanzadas.
-- 🔹 **TypeORM**: ORM para facilitar la interacción con bases de datos relacionales.
-- 🔹 **Express.js**: Framework flexible y minimalista para construir la API REST.
-- 🔹 **MySQL**: Base de datos relacional para almacenar y gestionar la información.
-- 🔹 **Node.js**: Entorno de ejecución de JavaScript para el lado del servidor.
-- 🔹 **express-validator**: Middleware para validar datos en las rutas.
-- 🔹 **sweetalert2**: Biblioteca para mensajes de alerta amigables en el frontend.
+### **/build/**
+Carpeta que contiene el código compilado a JavaScript.
 
-## 📐 **Estructura del Proyecto**
-El proyecto sigue el patrón **MVC (Modelo-Vista-Controlador)**, organizando el código en capas claras que facilitan el mantenimiento y la extensión. La integración con **TypeORM** hace que las interacciones con la base de datos sean más eficientes y el flujo de trabajo más dinámico.
+### **/src/** 
+Contiene el código fuente en TypeScript del proyecto:
 
-### 🏗️ **TypeORM - Gestión de Base de Datos**
-**TypeORM** es una herramienta esencial en este proyecto para interactuar con la base de datos relacional. Gracias a su estructura flexible y orientada a objetos, permite trabajar con bases de datos de manera intuitiva y eficiente. A continuación, se describe cómo se utiliza en el proyecto:
+- **/controller/**: Controladores que gestionan la lógica de cada entidad.
+  - `cursoController.ts`: Controlador para gestionar cursos.
+  - `estudianteController.ts`: Controlador para gestionar estudiantes.
+  - `inscripcionController.ts`: Controlador para gestionar la relación curso-estudiante.
+  - `profesorController.ts`: Controlador para gestionar profesores.
 
-- **Modelos y Entidades**: Define las tablas y sus relaciones directamente en el código con anotaciones de TypeScript.
-- **Migraciones**: Facilita la gestión de cambios en la estructura de la base de datos (añadir, modificar o eliminar tablas/columnas).
-- **Query Builders**: Permite construir consultas complejas sin necesidad de escribir SQL puro.
+- **/db/**: Configuración de la base de datos.
+  - `conexion.ts`: Archivo para establecer la conexión con la base de datos.
+  - `configDB.ts`: Configuración detallada de la base de datos.
+
+- **/middlewares/**: Middlewares para validar datos.
+  - `validarCampos.ts`: Middleware que maneja errores de validación.
+
+- **/models/**: Definiciones de entidades para la base de datos usando TypeORM.
+  - `cursoModels.ts`: Modelo de Curso.
+  - `estudianteModels.ts`: Modelo de Estudiante.
+  - `inscripcionModels.ts`: Modelo de Inscripción.
+  - `profesorModels.ts`: Modelo de Profesor.
+
+- **/routes/**: Define las rutas de la API.
+  - `cursoRoutes.ts`: Rutas para las operaciones CRUD de cursos.
+  - `estudianteRoutes.ts`: Rutas para las operaciones CRUD de estudiantes.
+  - `inscripcionRoutes.ts`: Rutas para las operaciones CRUD de inscripciones.
+  - `profesorRoutes.ts`: Rutas para las operaciones CRUD de profesores.
+
+- **/views/**: Carpeta que contiene las vistas del proyecto generadas con Pug.
+  - `index.pug`: Página principal del proyecto.
+  - `estudiantes.pug`: Vista para gestionar estudiantes.
+  - `cursos.pug`: Vista para gestionar cursos.
+  - `profesores.pug`: Vista para gestionar profesores.
+  - `inscripciones.pug`: Vista para gestionar inscripciones.
+
+- **/styles/**: Archivos CSS que contienen los estilos del proyecto.
+  - `styles.css`: Archivo con los estilos base utilizando Tailwind CSS.
+
+## 📜 Modelos de Entidades
+Cada modelo está ubicado en la carpeta `/models` y corresponde a una entidad de la base de datos:
+
+- `cursoModels.ts`: Define el esquema de la tabla de cursos con sus relaciones.
+- `estudianteModels.ts`: Esquema de estudiantes con atributos como nombre, edad y relaciones.
+- `inscripcionModels.ts`: Relaciona estudiantes y cursos para gestionar inscripciones.
+- `profesorModels.ts`: Modelo para gestionar a los profesores y sus cursos asignados.
+
+## 🎨 Pug - Motor de Plantillas
+Pug es un motor de plantillas que simplifica la escritura de HTML. Permite estructurar vistas de manera eficiente con una sintaxis minimalista, facilitando la creación de interfaces de usuario dinámicas y atractivas.
+
+### 📑 Archivos Pug en el Proyecto
+Los archivos `.pug` están ubicados en la carpeta `/views/` y corresponden a cada vista específica:
+
+- `index.pug`: Página principal del proyecto.
+- `estudiantes.pug`: Vista para gestionar estudiantes.
+- `cursos.pug`: Vista para gestionar cursos.
+- `profesores.pug`: Vista para gestionar profesores.
+- `inscripciones.pug`: Vista para gestionar inscripciones.
+
+### 🔧 Configuración de Pug en Express
+Para habilitar Pug como motor de plantillas en Express, se debe configurar en el archivo `index.ts`:
+
+```typescript
+import express from 'express';
+const app = express();
+
+// Configuración de Pug
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/views');
+
+// Ruta de ejemplo que renderiza la vista de estudiantes
+app.get('/estudiantes', (req, res) => {
+  res.render('estudiantes', { titulo: 'Gestión de Estudiantes' });
+});
+
 
 ### 🔧 **Configuración TypeORM**
 1. **Conexión a la base de datos**:  
