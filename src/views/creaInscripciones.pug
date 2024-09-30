@@ -1,0 +1,35 @@
+extends ./index
+
+block contenido
+    .py-10
+        h1.text-4xl.my-10.font-extrabold.text-center Crear Inscripción
+
+        .mt-8.mx-auto.max-w-md
+            .bg-white.py-8.px-4.shadow
+                form.space-y-5(method='POST' action='/CursosEstudiantes/creaInscripciones' noValidate)
+                
+                 
+                    div
+                        label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="estudiante_id") Estudiante
+                        select#estudiante_id.w-full.px-3.py-2.border.border-gray-300.rounded-md(name="estudiante_id" required)
+                            option(value='') -- Seleccione un estudiante --
+                                if estudiantes && estudiantes.length
+                                    each estudiante in estudiantes
+                                        option(value=estudiante.id)= estudiante.nombre
+
+                    
+                    div
+                        label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="curso_id") Curso
+                        select#curso_id.w-full.px-3.py-2.border.border-gray-300.rounded-md(name="curso_id" required)
+                            option(value='') -- Seleccione un curso --
+                                if estudiantes && estudiantes.length
+                                    each curso in cursos
+                                        option(value=curso.id)= curso.nombre
+
+                 
+                    div
+                        label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="calificacion") Calificación
+                        input#calificacion.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Calificación" type="number" name="calificacion" step="0.01" min="0" max="10" required)
+
+                    .flex.items-center.justify-between
+                        button(type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer") Inscribir

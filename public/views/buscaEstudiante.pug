@@ -1,0 +1,20 @@
+extends index
+
+block content
+  h1 #{pagina}
+
+  if id
+    p ID del Estudiante a buscar: #{id}
+    
+  
+    form(method="post", action=`/buscaEstudiante/${id}`)
+      button.btn(type="submit") Buscar Estudiante
+
+  else
+    p No se ha proporcionado un ID.
+    
+  //- Formulario de búsqueda por ID
+  form(method="get", action="/buscaEstudiante")
+    label(for="id") Ingrese el ID del Estudiante:
+    input(type="text", name="id", placeholder="ID del Estudiante")
+    button.btn(type="submit") Buscar

@@ -1,0 +1,56 @@
+extends ./index
+
+block contenido
+    .flex.justify-end.mb-4
+        ul.flex.space-x-4
+            li
+                a(href="/profesores/creaProfesores" class="text-green-600 hover:text-green-800") Agregar Profesor
+    
+    .py-10
+        h1.text-4xl.my-10.font-extrabold.text-center Proyecto
+            span.font-normal Universidad
+        h2.text-center.text-2xl.font-extrabold= pagina
+      
+        table.table-auto.w-full.mt-4
+            thead
+                tr
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Dni
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Nombre
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Apellido
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Email
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Profesion
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Telefono 
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Acciones
+            tbody
+                each estudiante in estudiantes
+                    tr
+                        td.px-6.py-4= estudiante.dni
+                        td.px-6.py-4= estudiante.nombre
+                        td.px-6.py-4= estudiante.apellido
+                        td.px-6.py-4= estudiante.email
+                        td.px-6.py-4
+                            a.text-blue-500(href=`/estudiantes/modificaEstudiante/${estudiante.id}`) Editar
+                            a.text-red-500.ml-2(href="#", onclick=`eliminarEstudiante('${estudiante.id}')`) Eliminar
+
+block scripts
+    script.
+        function eliminarEstudiante(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este estudiante?')) {
+                fetch(`/estudiantes/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.mensaje === 'Estudiante eliminado') {
+                        alert('Estudiante eliminado con éxito.');
+                        window.location.reload(); 
+                    } else {
+                        alert(data.mensaje); 
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al eliminar el estudiante.');
+                });
+            }
+        }

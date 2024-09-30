@@ -1,0 +1,58 @@
+extends ./index
+
+block contenido
+    .flex.justify-end.mb-4
+        ul.flex.space-x-4
+            li
+                a(href="/profesores/creaProfesores" class="text-black font-bold hover:text-green-800") Agregar Profesor
+    
+    .py-10
+        h1.text-4xl.my-10.font-extrabold.text-center Proyecto
+            span.font-normal Universidad
+        h2.text-center.text-2xl.font-extrabold= pagina
+      
+        table.table-auto.w-full.mt-4
+            thead
+                tr
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Dni
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Nombre
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Apellido
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Email
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Profesion
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Telefono 
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Acciones
+            tbody
+                each profesor in profesores
+                    tr
+                        td.px-6.py-4= profesor.dni
+                        td.px-6.py-4= profesor.nombre
+                        td.px-6.py-4= profesor.apellido
+                        td.px-6.py-4= profesor.email
+                        td.px-6.py-4= profesor.profesion
+                        td.px-6.py-4= profesor.telefono 
+                        td.px-6.py-4
+                            a.text-blue-500(href=`/profesores/modificaProfesor/${profesor .id}`) Editar
+                            a.text-red-500.ml-2(href="#", onclick=`eliminarprofesor('${profesor .id}')`) Eliminar
+
+block scripts
+    script.
+        function eliminarprofesor(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este profesor?')) {
+                fetch(`/profesores/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.mensaje === 'Profesor eliminado') {
+                        alert('Profesor eliminado con éxito.');
+                        window.location.reload(); 
+                    } else {
+                        alert(data.mensaje); 
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al eliminar el profesor.');
+                });
+            }
+        }

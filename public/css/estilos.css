@@ -1,0 +1,6 @@
+body {
+    background-image: url('../image/fondo.jpg'); /* Reemplaza con el nombre de tu imagen */
+    background-size: cover; /* Para cubrir toda la pantalla */
+    background-repeat: no-repeat; /* Para evitar que se repita la imagen */
+    background-position: center; /* Para centrar la imagen */
+}

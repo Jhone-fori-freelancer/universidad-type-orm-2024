@@ -1,0 +1,70 @@
+extends ./index
+
+block contenido
+    .flex.justify-end.mb-4
+        ul.flex.space-x-4
+            li
+                a(href="/CursosEstudiantes/creaInscripciones" class="text-black font-bold hover:text-green-800") Agregar Inscripciones
+
+
+    .py-10
+        h1.text-4xl.my-10.font-extrabold.text-center Proyecto
+            span.font-normal Universidad
+        h2.text-center.text-2xl.font-extrabold= pagina
+      
+        form(action="/CursosEstudiantes/listarInscripciones" method="GET")
+            .flex
+                select(name="estudiante_id" class="border rounded p-2 mr-4")
+                    option(value="") Seleccionar Estudiante
+                    each estudiante in estudiantes
+                        option(value=estudiante.id)= estudiante.nombre
+
+                select(name="curso_id" class="border rounded p-2 mr-4")
+                    option(value="") Seleccionar Curso
+                    each curso in cursos
+                        option(value=curso.id)= curso.nombre
+
+                button(type="submit" class="bg-blue-500 text-white rounded p-2") Filtrar
+
+        table.table-auto.w-full.mt-4
+            thead
+                tr
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Estudiante
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Curso
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Nota
+                    th.text-left.text-gray-500.uppercase.px-6.py-3 Acciones
+            tbody
+                each inscripcion in cursoEstudiante
+                    tr
+                        td.px-6.py-4= inscripcion.estudiante ? inscripcion.estudiante.nombre  : 'No disponible'
+                        td.px-6.py-4= inscripcion.curso ? inscripcion.curso.nombre : 'No disponible'
+                        td.px-6.py-4= inscripcion.nota
+                        td.px-6.py-4
+                            a.text-blue-500(href=`/CursosEstudiantes/modificarInscripcion/${inscripcion.estudiante_id}/${inscripcion.curso_id}`) Editar
+
+                            a.text-red-500.ml-2(href="#", onclick=`eliminar('${inscripcion.estudiante_id}','${inscripcion.curso_id}')`) Eliminar
+
+
+
+block scripts
+    script.
+        function eliminar(estudiante_id, curso_id) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta inscripción?')) {
+                fetch(`/CursosEstudiantes/${estudiante_id}/${curso_id}`,{
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.mensaje === 'Inscripción eliminada') {
+                        alert ('Inscripción eliminada con exito ');
+                        window.location.reload();
+                    } else {
+                        alert(data.mensaje);
+                    }
+                })
+                .catch(error =>{
+                    console.error('Error:', error);
+                    alert('Error al eliminar la inscripción');
+                })
+            }
+        }
