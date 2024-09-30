@@ -18,6 +18,36 @@ Este proyecto combina herramientas poderosas para ofrecer un entorno ágil, segu
 - 🔹 **express-validator**: Middleware para validar datos en las rutas.
 - 🔹 **sweetalert2**: Biblioteca para mensajes de alerta amigables en el frontend.
 
+## 📐 **Estructura del Proyecto**
+El proyecto sigue el patrón **MVC (Modelo-Vista-Controlador)**, organizando el código en capas claras que facilitan el mantenimiento y la extensión. La integración con **TypeORM** hace que las interacciones con la base de datos sean más eficientes y el flujo de trabajo más dinámico.
+
+### 🏗️ **TypeORM - Gestión de Base de Datos**
+**TypeORM** es una herramienta esencial en este proyecto para interactuar con la base de datos relacional. Gracias a su estructura flexible y orientada a objetos, permite trabajar con bases de datos de manera intuitiva y eficiente. A continuación, se describe cómo se utiliza en el proyecto:
+
+- **Modelos y Entidades**: Define las tablas y sus relaciones directamente en el código con anotaciones de TypeScript.
+- **Migraciones**: Facilita la gestión de cambios en la estructura de la base de datos (añadir, modificar o eliminar tablas/columnas).
+- **Query Builders**: Permite construir consultas complejas sin necesidad de escribir SQL puro.
+
+### 🔧 **Configuración TypeORM**
+1. **Conexión a la base de datos**:  
+   La conexión se establece en el archivo `conexion.ts`, que contiene la configuración básica para conectarse a la base de datos MySQL utilizando `mysql2/promise`.
+
+   ```typescript
+   import { createConnection } from "typeorm";
+   
+   createConnection({
+     type: "mysql",
+     host: "localhost",
+     port: 3306,
+     username: "root",
+     password: "password",
+     database: "universidad_db",
+     entities: [__dirname + "/../models/*.ts"],
+     synchronize: true,
+   }).then(() => console.log("🚀 Base de datos conectada exitosamente!"))
+     .catch(error => console.log("❌ Error al conectar la base de datos: ", error));
+
+
 ## 🗂️ **Estructura del Proyecto**
 El proyecto sigue el patrón **MVC (Modelo-Vista-Controlador)**, organizando el código en capas claras que facilitan el mantenimiento y la extensión. La integración con **TypeORM** hace que las interacciones con la base de datos sean más eficientes y el flujo de trabajo más dinámico.
 
